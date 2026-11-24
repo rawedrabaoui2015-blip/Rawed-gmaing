@@ -1,0 +1,503 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b0912">
+<title>RAWED GAMING</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+ background:#0b0912;
+ color:white;
+ font-family:Arial,sans-serif;
+}
+
+header{
+ background:#171121;
+ padding:18px;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ flex-wrap:wrap;
+ gap:15px;
+ border-bottom:1px solid #48235f;
+}
+
+.logo{
+ color:#bd70ff;
+ font-size:27px;
+ font-weight:bold;
+}
+
+nav{display:flex;gap:14px}
+
+nav a{
+ color:white;
+ text-decoration:none;
+ font-size:14px;
+}
+
+nav a:hover{color:#bd70ff}
+
+.hero{
+ text-align:center;
+ padding:90px 15px;
+ background:radial-gradient(circle at top,#482064,#100b1c 70%);
+}
+
+.hero h1{font-size:clamp(35px,9vw,60px)}
+.hero h1 span{color:#bd70ff}
+.hero p{color:#ccc;margin:20px 0}
+
+button,.main-btn{
+ background:#963de5;
+ color:white;
+ border:0;
+ padding:13px 20px;
+ border-radius:9px;
+ cursor:pointer;
+ text-decoration:none;
+ display:inline-block;
+}
+
+button:hover,.main-btn:hover{
+ background:#b66aff;
+}
+
+section{padding:45px 15px}
+
+.games-section{text-align:center}
+
+h2{color:#bd70ff;margin-bottom:15px}
+
+#search{
+ width:95%;
+ max-width:450px;
+ padding:15px;
+ background:#191323;
+ color:white;
+ border:1px solid #963de5;
+ border-radius:10px;
+ font-size:16px;
+ margin:25px 0;
+}
+
+.game-list{
+ display:grid;
+ grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:15px;
+ max-width:850px;
+ margin:auto;
+}
+
+.game-card{
+ background:#191323;
+ border:1px solid #38204d;
+ border-radius:15px;
+ padding:20px 12px;
+ transition:.3s;
+}
+
+.game-card:hover{
+ transform:translateY(-4px);
+ border-color:#bd70ff;
+}
+
+.game-icon{font-size:55px;margin-bottom:12px}
+.game-card h3{margin:10px 0}
+.game-card p{color:#aaa;margin-bottom:17px;font-size:13px}
+.game-card button{width:100%}
+
+.about{
+ background:#171121;
+ text-align:center;
+ color:#ccc;
+ line-height:1.8;
+}
+
+footer{
+ text-align:center;
+ padding:30px;
+ color:#aaa;
+}
+
+footer strong{color:#bd70ff;font-size:23px}
+
+/* صفحة التفاصيل */
+
+.details-page{
+ display:none;
+ min-height:75vh;
+ padding:25px 15px 50px;
+ max-width:850px;
+ margin:auto;
+}
+
+.back-btn{margin-bottom:25px}
+
+.details-icon{
+ font-size:65px;
+ margin:15px 0;
+ text-align:center;
+}
+
+.details-title{
+ text-align:center;
+ font-size:32px;
+ color:#bd70ff;
+ margin-bottom:15px;
+}
+
+.details-type{
+ display:block;
+ text-align:center;
+ color:#c9a2e9;
+ margin-bottom:25px;
+}
+
+.details-content{
+ background:#191323;
+ border:1px solid #49305d;
+ border-radius:15px;
+ padding:22px;
+ margin-bottom:18px;
+}
+
+.details-content h3{
+ color:#bd70ff;
+ margin-bottom:15px;
+}
+
+.details-content p{
+ color:#ddd;
+ line-height:1.9;
+}
+
+.details-content ul{
+ padding-right:20px;
+ color:#ddd;
+ line-height:2;
+}
+
+.info-grid{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:12px;
+}
+
+.info-item{
+ background:#241932;
+ padding:15px;
+ border-radius:10px;
+}
+
+.info-item small{
+ color:#aaa;
+ display:block;
+ margin-bottom:8px;
+}
+
+.info-item strong{color:white}
+
+.action-area{text-align:center;margin-top:25px}
+
+.no-result{
+ display:none;
+ color:#bd70ff;
+ margin:25px;
+}
+
+@media(max-width:380px){
+ .game-list{grid-template-columns:1fr}
+ nav{gap:9px}
+ .info-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+ <div class="logo">RAWED.</div>
+ <nav>
+  <a href="#" onclick="home();return false">الرئيسية</a>
+  <a href="#games" onclick="home();return true">الألعاب</a>
+  <a href="#about" onclick="home();return true">حولنا</a>
+ </nav>
+</header>
+
+<section class="hero" id="hero">
+ <h1>RAWED <span>GAMING</span></h1>
+ <p>اكتشف عالم الألعاب في مكان واحد 🎮</p>
+ <button onclick="goGames()">اكتشف الألعاب</button>
+</section>
+
+<section class="games-section" id="games">
+ <h2>🎮 مكتبة الألعاب</h2>
+ <p style="color:#aaa">اختر لعبة لمعرفة جميع تفاصيلها</p>
+
+ <input id="search" placeholder="ابحث عن لعبة..."
+ oninput="searchGames()">
+
+ <div class="game-list" id="gameList">
+
+  <div class="game-card" data-name="free fire">
+   <div class="game-icon">🔥</div>
+   <h3>FREE FIRE</h3>
+   <p>Battle Royale</p>
+   <button onclick="showGame('freefire')">عرض التفاصيل</button>
+  </div>
+
+  <div class="game-card" data-name="pubg mobile">
+   <div class="game-icon">🎯</div>
+   <h3>PUBG MOBILE</h3>
+   <p>Battle Royale</p>
+   <button onclick="showGame('pubg')">عرض التفاصيل</button>
+  </div>
+
+  <div class="game-card" data-name="gorebox">
+   <div class="game-icon">💀</div>
+   <h3>GOREBOX</h3>
+   <p>Sandbox</p>
+   <button onclick="showGame('gorebox')">عرض التفاصيل</button>
+  </div>
+
+  <div class="game-card" data-name="minecraft">
+   <div class="game-icon">⛏️</div>
+   <h3>MINECRAFT</h3>
+   <p>Adventure</p>
+   <button onclick="showGame('minecraft')">عرض التفاصيل</button>
+  </div>
+
+ </div>
+
+ <p class="no-result" id="noResult">لم يتم العثور على اللعبة!</p>
+</section>
+
+<!-- صفحة تفاصيل اللعبة -->
+
+<div class="details-page" id="detailsPage">
+
+ <button class="back-btn" onclick="home()">← العودة للألعاب</button>
+
+ <div class="details-icon" id="gameIcon"></div>
+ <h1 class="details-title" id="gameTitle"></h1>
+ <span class="details-type" id="gameType"></span>
+
+ <div class="details-content">
+  <h3>📖 عن اللعبة</h3>
+  <p id="gameDescription"></p>
+ </div>
+
+ <div class="details-content">
+  <h3>📋 معلومات اللعبة</h3>
+  <div class="info-grid">
+   <div class="info-item">
+    <small>الشركة المطورة</small>
+    <strong id="developer"></strong>
+   </div>
+   <div class="info-item">
+    <small>نوع اللعبة</small>
+    <strong id="genre"></strong>
+   </div>
+   <div class="info-item">
+    <small>المنصات</small>
+    <strong id="platform"></strong>
+   </div>
+   <div class="info-item">
+    <small>نمط اللعب</small>
+    <strong id="mode"></strong>
+   </div>
+  </div>
+ </div>
+
+ <div class="details-content">
+  <h3>⭐ مميزات اللعبة</h3>
+  <ul id="features"></ul>
+ </div>
+
+ <div class="details-content">
+  <h3>🎮 طريقة اللعب</h3>
+  <p id="gameplay"></p>
+ </div>
+
+ <div class="action-area">
+  <button onclick="home()">العودة إلى مكتبة الألعاب</button>
+ </div>
+
+</div>
+
+<section class="about" id="about">
+ <h2>ABOUT RAWED</h2>
+ <p>
+  مرحبا بك في RAWED GAMING،
+  موقع يهتم بعالم ألعاب الفيديو.
+  اكتشف الألعاب وتعرّف على مميزاتها.
+ </p>
+</section>
+
+<footer>
+ <strong>RAWED GAMING</strong>
+ <p>© 2026 All Rights Reserved</p>
+</footer>
+
+<script>
+
+const games = {
+
+ freefire:{
+  icon:"🔥",
+  title:"FREE FIRE",
+  type:"Battle Royale",
+  description:"Free Fire هي لعبة باتل رويال من Garena. تبدأ المباراة مع مجموعة من اللاعبين في جزيرة، ويجب عليك استكشاف الخريطة وجمع المعدات ومحاولة البقاء حتى نهاية المباراة. تحتوي اللعبة على شخصيات مختلفة وقدرات خاصة وأوضاع لعب متنوعة.",
+  developer:"Garena",
+  genre:"أكشن وباتل رويال",
+  platform:"Android و iOS",
+  mode:"فردي وثنائي وجماعي",
+  features:[
+   "مباريات سريعة وممتعة",
+   "شخصيات بقدرات مختلفة",
+   "خرائط وأوضاع لعب متنوعة",
+   "إمكانية اللعب مع الأصدقاء",
+   "تحديثات وأحداث داخل اللعبة"
+  ],
+  gameplay:"تبدأ باختيار نمط اللعب، ثم تدخل المباراة وتستكشف المنطقة وتجمع المعدات وتعمل مع فريقك للوصول إلى أفضل نتيجة."
+ },
+
+ pubg:{
+  icon:"🎯",
+  title:"PUBG MOBILE",
+  type:"Battle Royale",
+  description:"PUBG Mobile لعبة باتل رويال مشهورة، يدخل اللاعبون إلى خرائط واسعة ويبحثون عن المعدات والمركبات. تقدم اللعبة تجربة تنافسية وتسمح باللعب الفردي أو مع فريق من الأصدقاء.",
+  developer:"Level Infinite / PUBG Studios",
+  genre:"أكشن وبقاء",
+  platform:"Android و iOS",
+  mode:"فردي وثنائي ورباعي",
+  features:[
+   "خرائط متنوعة",
+   "مركبات وأدوات كثيرة",
+   "أوضاع لعب متعددة",
+   "اللعب الجماعي مع الأصدقاء",
+   "تخصيص إعدادات التحكم"
+  ],
+  gameplay:"تختار الخريطة ونمط اللعب، ثم تبدأ باستكشاف المنطقة وجمع المعدات والتعاون مع الفريق خلال المباراة."
+ },
+
+ gorebox:{
+  icon:"💀",
+  title:"GOREBOX",
+  type:"Sandbox",
+  description:"GoreBox لعبة من نوع Sandbox تقدم بيئة تفاعلية تسمح للاعب باستكشاف العوالم وتجربة الأدوات والعناصر المختلفة وإنشاء تجارب داخل اللعبة.",
+  developer:"F²Games",
+  genre:"Sandbox ومحاكاة",
+  platform:"Android و PC",
+  mode:"تجارب فردية وخرائط متنوعة",
+  features:[
+   "بيئات قابلة للاستكشاف",
+   "أدوات وعناصر متنوعة",
+   "خرائط مختلفة",
+   "إمكانيات إنشاء تجارب خاصة",
+   "حرية كبيرة في أسلوب اللعب"
+  ],
+  gameplay:"يمكنك الدخول إلى الخرائط واستكشافها وتجربة الأدوات والعناصر المتاحة وإنشاء سيناريوهات خاصة بك."
+ },
+
+ minecraft:{
+  icon:"⛏️",
+  title:"MINECRAFT",
+  type:"Adventure / Sandbox",
+  description:"Minecraft لعبة عالم مفتوح تعتمد على البناء والاستكشاف والإبداع. يمكنك إنشاء المنازل وصناعة الأدوات وجمع الموارد واستكشاف عوالم مختلفة.",
+  developer:"Mojang Studios",
+  genre:"مغامرات وبناء",
+  platform:"Android و PC و Consoles",
+  mode:"فردي وجماعي",
+  features:[
+   "عالم مفتوح واسع",
+   "البناء والإبداع",
+   "صناعة الأدوات",
+   "استكشاف الكهوف والعوالم",
+   "اللعب مع الأصدقاء"
+  ],
+  gameplay:"تجمع الموارد وتستعملها لصناعة الأدوات وبناء عالمك الخاص، ويمكنك استكشاف أماكن جديدة وخوض مغامرات."
+ }
+
+};
+
+function showGame(id){
+
+ const game=games[id];
+ if(!game)return;
+
+ document.getElementById("gameIcon").textContent=game.icon;
+ document.getElementById("gameTitle").textContent=game.title;
+ document.getElementById("gameType").textContent=game.type;
+ document.getElementById("gameDescription").textContent=game.description;
+ document.getElementById("developer").textContent=game.developer;
+ document.getElementById("genre").textContent=game.genre;
+ document.getElementById("platform").textContent=game.platform;
+ document.getElementById("mode").textContent=game.mode;
+ document.getElementById("gameplay").textContent=game.gameplay;
+
+ const features=document.getElementById("features");
+ features.innerHTML="";
+
+ game.features.forEach(function(feature){
+  const li=document.createElement("li");
+  li.textContent=feature;
+  features.appendChild(li);
+ });
+
+ document.getElementById("hero").style.display="none";
+ document.getElementById("games").style.display="none";
+ document.getElementById("about").style.display="none";
+ document.getElementById("detailsPage").style.display="block";
+
+ window.scrollTo(0,0);
+ history.pushState({game:id},"","#"+id);
+}
+
+function home(){
+ document.getElementById("hero").style.display="block";
+ document.getElementById("games").style.display="block";
+ document.getElementById("about").style.display="block";
+ document.getElementById("detailsPage").style.display="none";
+
+ history.pushState({page:"home"},"", "#games");
+ window.scrollTo(0,0);
+}
+
+function goGames(){
+ document.getElementById("games").scrollIntoView({
+  behavior:"smooth"
+ });
+}
+
+function searchGames(){
+
+ const value=document.getElementById("search").value.toLowerCase().trim();
+ const cards=document.querySelectorAll(".game-card");
+ let count=0;
+
+ cards.forEach(function(card){
+  const match=card.dataset.name.includes(value);
+  card.style.display=match?"block":"none";
+  if(match)count++;
+ });
+
+ document.getElementById("noResult").style.display=
+  count===0?"block":"none";
+}
+
+window.addEventListener("popstate",function(){
+ home();
+});
+
+</script>
+
+</body>
+                             </html>
+                             
